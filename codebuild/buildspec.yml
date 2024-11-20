@@ -3,16 +3,21 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing AWS CLI...
-      - pip install --upgrade awscli
+      - echo Installing dependencies...
+      - pip install --upgrade awscli  # Ensure AWS CLI is installed
+      - aws --version  # Verify AWS CLI version (v2 preferred)
+      
   build:
     commands:
-      - echo Validating CloudFormation templates...
+      - echo Verifying CloudFormation template path...
+      - ls -l cloudformation/iam/iam-role.yaml  # List the directory to ensure the file exists
+      - echo Validating CloudFormation template...
       - aws cloudformation validate-template --template-body file://cloudformation/iam/iam-role.yaml
+
   post_build:
     commands:
-      - echo CloudFormation template validated successfully
+      - echo CloudFormation template validation complete!
 
 artifacts:
   files:
-    - '**/*'
+    - cloudformation/**/*   # Include all CloudFormation templates in the output artifact
