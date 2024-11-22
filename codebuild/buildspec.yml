@@ -17,11 +17,7 @@ phases:
 
   post_build:
     commands:
-      - echo Deploying CloudFormation stack...
-      - aws cloudformation deploy \
-          --template-file cloudformation/iam/iam-role.yaml \
-          --stack-name my-stack-name \
-          --parameter-overrides file://cloudformation/iam/parameters.json
+     - echo CloudFormation template validation complete!
 
 artifacts:
   files:
