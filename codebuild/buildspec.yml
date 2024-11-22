@@ -13,10 +13,15 @@ phases:
       - ls -l cloudformation/iam/iam-role.yaml  # List the directory to ensure the file exists
       - echo Validating CloudFormation template...
       - aws cloudformation validate-template --template-body file://cloudformation/iam/iam-role.yaml
+      - echo CloudFormation template validated successfully.
 
   post_build:
     commands:
-      - echo CloudFormation template validation complete!
+      - echo Deploying CloudFormation stack...
+      - aws cloudformation deploy \
+          --template-file cloudformation/iam/iam-role.yaml \
+          --stack-name my-stack-name \
+          --parameter-overrides file://cloudformation/iam/parameters.json
 
 artifacts:
   files:
